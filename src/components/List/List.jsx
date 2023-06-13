@@ -1,24 +1,7 @@
 import { useState, useEffect } from "react";
-function List() {
-    let [list, setList] = useState([]);
+
+function List({getter, deleteMe, completeMe}) {
     
-
-    function getList(func) {
-        let data 
-        fetch('/todo')
-        .then(response => {
-            return response.json()
-        })
-        .then(json => {
-            console.log(json)
-            return json;
-        })
-        .then(func)
-    }    
-
-    useEffect(() => {
-      getList(setList);
-    }, []);
 
 
 return (
@@ -31,10 +14,11 @@ return (
               <th>duration</th>
               <th>date_added</th>
               <th>type</th>
+              <th>complete</th>
             </tr>
           </thead>
           <tbody>
-            {list.map(item => {
+            {getter.map(item => {
                 return  (
                   <tr>
                     <td>{item.name}</td>
@@ -42,6 +26,11 @@ return (
                     <td>{item.duration}</td>
                     <td>{item.date_added}</td>
                     <td>{item.type}</td>
+                    <td>{item.complete}</td>
+                    {item.complete == 'False' &&
+                    <td><button onClick={completeMe} id={item.name} data={item}>complete</button></td>
+                    }
+                    <td onClick={deleteMe} ><button id={item.name}>delete</button></td>
                   </tr> )}
                   )}
           </tbody>

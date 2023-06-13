@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
-function Form() {
+function Form({getList, setList}) {
+
+
     let [obj, setObj] = useState({
         "name": '',
         "description": '',
         "duration": '',
         "date_added": '',
-        "type": '' 
+        "type": '',
+        "complete": false 
     });
 
     
@@ -30,7 +33,9 @@ function Form() {
             input.value = ''
         }
         obj[select.id] = select.value
+        obj['complete'] = false;
         addToList(obj)
+        getList(setList)
         
     }
 
@@ -49,10 +54,7 @@ return (
             setValues(event, setObj)
         }}>Submit</button>
     </div>
-        <button onClick={(event) => {
-            console.log(obj)
-        }}>Click</button>
-        
+       
         
         
 
