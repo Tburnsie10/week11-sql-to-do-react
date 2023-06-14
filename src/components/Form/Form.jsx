@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-function Form({getList, setList}) {
+function Form({getList, setList, setRender}) {
 
 
     let [obj, setObj] = useState({
@@ -20,6 +20,7 @@ function Form({getList, setList}) {
             headers: {
                 "Content-type": "application/json; charset=UTF-8"
             }})
+            setRender(true) 
     }    
 
     function setValues(event, setObj) {
@@ -33,7 +34,7 @@ function Form({getList, setList}) {
             input.value = ''
         }
         obj[select.id] = select.value
-        obj['complete'] = false;
+        obj['complete'] = 'False';
         addToList(obj)
         getList(setList)
         

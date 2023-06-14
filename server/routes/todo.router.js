@@ -30,15 +30,15 @@ router.post('/', (req,res) => {
 })
 
 // PUT
-router.put('/:name', (req,res) => {
-    const name = req.params.name;
-    console.log(newTask);
+router.put('/', (req,res) => {
+    const name = req.body.id;
+    console.log(name);
     pool.query(`
     UPDATE todo
     SET complete = True
-    WHERE name = ${name};
+    WHERE name = '${name}';
 
-    `)
+    `) 
 
 })
 

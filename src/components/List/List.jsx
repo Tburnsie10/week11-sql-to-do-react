@@ -28,7 +28,7 @@ return (
                     <td>{item.type}</td>
                     <td>{item.complete}</td>
                     {item.complete == 'False' &&
-                    <td><button onClick={completeMe} id={item.name} data={item}>complete</button></td>
+                    <td><button onClick={completeMe} id={item.name}>complete</button></td>
                     }
                     <td onClick={deleteMe} ><button id={item.name}>delete</button></td>
                   </tr> )}

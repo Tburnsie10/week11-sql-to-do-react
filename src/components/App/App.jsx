@@ -2,12 +2,17 @@ import {useEffect, useState} from 'react';
 import List  from '../List/List.jsx';
 import Form from "../Form/Form.jsx";
 
+
+
 function App () {
   
 
 
  
     let [list, setList] = useState([]);
+    let [render, setRender] = useState(false);
+    console.log(render)
+
 
    
     
@@ -22,6 +27,7 @@ function App () {
             return json;
         })
         .then(func)
+        
 
     }    
 
@@ -34,24 +40,31 @@ function App () {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }})
+        setRender(true); 
+        console.log(render)
 
     }
 
 
     function completeMe(event) {
       let name = event.target.id;
-      fetch(`/todo/:${name}`, {
+      fetch(`/todo`, {
         method: "PUT",
+        body: JSON.stringify({id:name}),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
-        }}) 
+        }})
+        setRender(true); 
       
     }
 
 
     useEffect(() => {
+      if (render == true) {
+        setRender(false)
+      } 
       getList(setList);
-    }, [list]);
+    }, [render]);
 
 
     
@@ -63,10 +76,10 @@ function App () {
       <h1>TO DO APP</h1>
     </div>
     <div id="Form">
-      <Form getList={getList} setList={setList} ></Form>
+      <Form getList={getList} setList={setList} setRender={setRender} ></Form>
     </div>
     <div id='List'>
-    <List  getter={list} deleteMe={deleteMe} completeMe={completeMe} ></List>
+    <List  getter={list} deleteMe={deleteMe} completeMe={completeMe} setRender={setRender} ></List>
     </div>
     </>
   );
