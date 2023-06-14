@@ -11,7 +11,7 @@ function App () {
  
     let [list, setList] = useState([]);
     let [render, setRender] = useState(false);
-    console.log(render)
+    
 
 
    
@@ -27,7 +27,7 @@ function App () {
             return json;
         })
         .then(func)
-        
+        setRender(true);
 
     }    
 
@@ -40,8 +40,9 @@ function App () {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }})
-        setRender(true); 
-        console.log(render)
+        setRender(true)
+        getList(setList)
+       
 
     }
 
@@ -54,17 +55,15 @@ function App () {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }})
-        setRender(true); 
+        setRender(true)
+        getList(setList)
       
     }
 
 
     useEffect(() => {
-      if (render == true) {
-        setRender(false)
-      } 
       getList(setList);
-    }, [render]);
+  });
 
 
     
@@ -79,7 +78,7 @@ function App () {
       <Form getList={getList} setList={setList} setRender={setRender} ></Form>
     </div>
     <div id='List'>
-    <List  getter={list} deleteMe={deleteMe} completeMe={completeMe} setRender={setRender} ></List>
+    <List  getter={list} deleteMe={deleteMe} completeMe={completeMe} render={render} ></List>
     </div>
     </>
   );

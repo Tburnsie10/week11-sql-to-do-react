@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 
-function List({getter, deleteMe, completeMe}) {
+function List({getter, deleteMe, completeMe, render}) {
     
+useEffect(() => {
 
+}, [render])
 
 return (
 <><h1>List</h1>
@@ -20,7 +22,7 @@ return (
           <tbody>
             {getter.map(item => {
                 return  (
-                  <tr>
+                  <tr style={item.complete == 'true' ? {'background-color': 'green'} : {'background-color': 'red'} }>
                     <td>{item.name}</td>
                     <td>{item.description}</td>
                     <td>{item.duration}</td>
@@ -30,7 +32,7 @@ return (
                     {item.complete == 'False' &&
                     <td><button onClick={completeMe} id={item.name}>complete</button></td>
                     }
-                    <td onClick={deleteMe} ><button id={item.name}>delete</button></td>
+                    <td><button onClick={deleteMe} id={item.name}>delete</button></td>
                   </tr> )}
                   )}
           </tbody>
